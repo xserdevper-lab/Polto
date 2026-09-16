@@ -1,0 +1,2636 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <title>My Space</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Navbar CSS -->
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="car.css">
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+    <header class="app-header">
+
+        <div>
+            <div class="header-title" id="page-title">
+                ALL
+            </div>
+
+            <div class="header-sub" id="today-date"></div>
+        </div>
+
+        <button
+            class="header-btn"
+            type="button"
+            onclick="openAddModal()"
+            aria-label="เพิ่มรายการ"
+        >
+            <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+            >
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+        </button>
+
+    </header>
+
+
+    <!-- =====================================================
+         PAGES
+    ====================================================== -->
+    <div class="pages">
+
+
+        <!-- =================================================
+             OVERVIEW
+        ================================================== -->
+        <div
+            class="page active"
+            id="page-overview"
+        >
+
+            <div class="hero-card">
+
+                <div class="hero-label">
+                    รายจ่ายเดือนนี้
+                </div>
+
+                <div class="hero-amount">
+                    ฿<span id="ov-spent">0</span>
+                </div>
+
+                <div class="hero-sub">
+                    จาก ฿<span id="ov-total">0</span>
+                </div>
+
+                <div class="hero-row">
+
+                    <div class="hero-mini">
+                        <div
+                            class="hero-mini-val"
+                            id="ov-passwords"
+                        >
+                            0
+                        </div>
+
+                        <div class="hero-mini-label">
+                            รหัสผ่าน
+                        </div>
+                    </div>
+
+
+                    <div class="hero-mini">
+                        <div
+                            class="hero-mini-val"
+                            id="ov-todos"
+                        >
+                            0
+                        </div>
+
+                        <div class="hero-mini-label">
+                            งานค้าง
+                        </div>
+                    </div>
+
+
+                    <div class="hero-mini">
+                        <div
+                            class="hero-mini-val"
+                            id="ov-bills-count"
+                        >
+                            0
+                        </div>
+
+                        <div class="hero-mini-label">
+                            บิลค้าง
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="section-title">
+                บิลค้างจ่าย
+            </div>
+
+            <div
+                class="list-card"
+                id="ov-bills-list"
+            ></div>
+
+
+            <div class="section-title">
+                เตือนความจำ
+            </div>
+
+            <div
+                class="list-card"
+                id="ov-reminder-list"
+            ></div>
+
+
+            <div style="height:16px;"></div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             BILLS
+        ================================================== -->
+        <div
+            class="page"
+            id="page-bills"
+        >
+
+            <div class="stat-strip">
+
+                <div class="stat-box">
+                    <div class="stat-box-label">
+                        ทั้งหมด
+                    </div>
+
+                    <div
+                        class="stat-box-value"
+                        id="bill-total-amount"
+                    >
+                        ฿0
+                    </div>
+
+                    <div class="stat-box-sub">
+                        ต่อเดือน
+                    </div>
+                </div>
+
+
+                <div class="stat-box">
+                    <div class="stat-box-label">
+                        จ่ายแล้ว
+                    </div>
+
+                    <div
+                        class="stat-box-value"
+                        id="bill-paid-amount"
+                    >
+                        ฿0
+                    </div>
+
+                    <div
+                        class="stat-box-sub"
+                        id="bill-paid-count"
+                    >
+                        0 รายการ
+                    </div>
+                </div>
+
+
+                <div class="stat-box">
+                    <div class="stat-box-label">
+                        ค้างจ่าย
+                    </div>
+
+                    <div
+                        class="stat-box-value"
+                        id="bill-unpaid-amount"
+                    >
+                        ฿0
+                    </div>
+
+                    <div
+                        class="stat-box-sub"
+                        id="bill-unpaid-count"
+                    >
+                        0 รายการ
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="bill-paid-bar">
+                <div
+                    class="bill-paid-fill"
+                    id="bill-paid-bar"
+                    style="width:0%"
+                ></div>
+            </div>
+
+
+            <div id="bills-list-container"></div>
+
+
+            <button
+                class="btn btn-ghost"
+                type="button"
+                style="width:100%;margin-top:10px;"
+                onclick="resetAllBills()"
+            >
+
+                <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <polyline points="23,4 23,11 16,11"/>
+                    <polyline points="1,20 1,13 8,13"/>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 11"/>
+                    <path d="M1 13l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                </svg>
+
+                รีเซ็ตเดือนใหม่
+
+            </button>
+
+
+            <div style="height:16px;"></div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PASSWORDS
+        ================================================== -->
+        <div
+            class="page"
+            id="page-passwords"
+        >
+
+            <div
+                class="list-card"
+                id="password-list-container"
+            >
+
+                <div class="empty">
+
+                    <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+                        <circle cx="8" cy="15" r="5"/>
+                        <path d="M21 3L11.6 12.4"/>
+                        <path d="M16 8l2 2"/>
+                        <path d="M19 5l2 2"/>
+                    </svg>
+
+                    <div class="empty-text">
+                        ยังไม่มีรหัสที่บันทึก<br>
+                        กด + เพื่อเพิ่ม
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             REMINDERS
+        ================================================== -->
+        <div
+            class="page"
+            id="page-reminders"
+        >
+
+            <div
+                class="list-card"
+                id="reminder-list-container"
+            >
+
+                <div class="empty">
+
+                    <svg
+                        width="40"
+                        height="40"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                    </svg>
+
+                    <div class="empty-text">
+                        ยังไม่มีรายการ<br>
+                        กด + เพื่อเพิ่ม
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             MORE
+        ================================================== -->
+        <div
+            class="page"
+            id="page-more"
+        >
+
+            <div class="section-title">
+                CAR
+            </div>
+
+
+            <div
+                class="card"
+                style="cursor:pointer;"
+                onclick="openCarPage()"
+            >
+
+                <div
+                    style="
+                        display:flex;
+                        align-items:center;
+                        gap:12px;
+                    "
+                >
+
+                    <div class="item-icon">
+
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l2-4h10l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/>
+                            <circle cx="7.5" cy="17.5" r="2.5"/>
+                            <circle cx="16.5" cy="17.5" r="2.5"/>
+                        </svg>
+
+                    </div>
+
+
+                    <div style="flex:1;">
+
+                        <div
+                            id="more-car-model"
+                            style="
+                                font-size:14px;
+                                font-weight:500;
+                            "
+                        >
+                            ยังไม่ได้ตั้งค่ารถ
+                        </div>
+
+                        <div
+                            id="more-car-plate"
+                            style="
+                                font-size:12px;
+                                color:var(--text-muted);
+                            "
+                        >
+                            แตะเพื่อดูข้อมูล
+                        </div>
+
+                    </div>
+
+
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        opacity="0.3"
+                    >
+                        <polyline points="9,18 15,12 9,6"/>
+                    </svg>
+
+                </div>
+
+            </div>
+
+
+            <div class="section-title">
+                ค่าใช้จ่าย
+            </div>
+
+
+            <div class="tabs">
+
+                <button
+                    class="tab active"
+                    type="button"
+                    onclick="switchMoreTab(this,'tab-m-budget')"
+                >
+                    งบประมาณ
+                </button>
+
+                <button
+                    class="tab"
+                    type="button"
+                    onclick="switchMoreTab(this,'tab-m-summary')"
+                >
+                    สรุป
+                </button>
+
+            </div>
+
+
+            <div id="tab-m-budget">
+
+                <div class="section-row">
+
+                    <span></span>
+
+                    <button
+                        class="btn btn-ghost"
+                        type="button"
+                        style="
+                            padding:8px 14px;
+                            font-size:13px;
+                        "
+                        onclick="openBudgetModal()"
+                    >
+                        + เพิ่ม
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="list-card"
+                    id="budget-list-container"
+                >
+
+                    <div class="empty">
+
+                        <svg
+                            width="36"
+                            height="36"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        >
+                            <path d="M12 2v20"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+
+                        <div class="empty-text">
+                            ยังไม่มีหมวด
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="tab-m-summary"
+                style="display:none;"
+            >
+
+                <div
+                    class="card"
+                    id="budget-summary-content"
+                >
+
+                    <div class="empty">
+
+                        <svg
+                            width="36"
+                            height="36"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        >
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                            <line x1="2" y1="20" x2="22" y2="20"/>
+                        </svg>
+
+                        <div class="empty-text">
+                            ยังไม่มีข้อมูล
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                style="margin-top:8px;"
+                class="section-row"
+            >
+
+                <div
+                    class="section-title"
+                    style="margin:0;"
+                >
+                    โน้ตส่วนตัว
+                </div>
+
+                <button
+                    class="btn btn-ghost"
+                    type="button"
+                    style="
+                        padding:8px 14px;
+                        font-size:13px;
+                    "
+                    onclick="openNoteModal()"
+                >
+                    + เพิ่ม
+                </button>
+
+            </div>
+
+
+            <div
+                class="notes-grid"
+                id="notes-container"
+            >
+
+                <div
+                    class="empty"
+                    style="grid-column:1/-1;"
+                >
+
+                    <svg
+                        width="36"
+                        height="36"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                    </svg>
+
+                    <div class="empty-text">
+                        ยังไม่มีโน้ต
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div style="height:20px;"></div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CAR
+        ================================================== -->
+        <div
+            class="page"
+            id="page-car"
+        >
+
+
+            <!-- CAR PHOTO -->
+            <div
+                class="car-photo"
+                onclick="document.getElementById('car-img-input').click()"
+            >
+
+                <img
+                    id="car-img-preview"
+                    src=""
+                    alt=""
+                    style="display:none;"
+                >
+
+
+                <div
+                    id="car-img-placeholder"
+                    style="
+                        color:rgba(255,255,255,0.4);
+                        text-align:center;
+                        display:flex;
+                        flex-direction:column;
+                        align-items:center;
+                    "
+                >
+
+                    <svg
+                        width="48"
+                        height="48"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                    >
+                        <path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l2-4h10l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/>
+                        <circle cx="7.5" cy="17.5" r="2.5"/>
+                        <circle cx="16.5" cy="17.5" r="2.5"/>
+                    </svg>
+
+                    <div
+                        style="
+                            font-size:12px;
+                            margin-top:8px;
+                        "
+                    >
+                        แตะเพื่ออัปโหลดรูปรถ
+                    </div>
+
+                </div>
+
+
+                <div class="car-photo-overlay">
+
+                    <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                        <circle cx="12" cy="13" r="4"/>
+                    </svg>
+
+                    เปลี่ยนรูป
+
+                </div>
+
+            </div>
+
+
+            <input
+                type="file"
+                id="car-img-input"
+                accept="image/*"
+                style="display:none;"
+                onchange="handleCarImage(event)"
+            >
+
+
+
+            <!-- CAR MAIN INFO -->
+            <div
+                class="card"
+                style="margin-bottom:12px;"
+            >
+
+                <div
+                    style="
+                        display:flex;
+                        align-items:center;
+                        justify-content:space-between;
+                        margin-bottom:14px;
+                    "
+                >
+
+                    <div>
+
+                        <div
+                            id="car-model-text"
+                            style="
+                                font-size:20px;
+                                font-weight:600;
+                                letter-spacing:-0.3px;
+                            "
+                        >
+                            ยังไม่ได้ตั้งค่า
+                        </div>
+
+                        <div
+                            id="car-plate-text"
+                            style="
+                                font-size:13px;
+                                color:var(--text-muted);
+                                margin-top:2px;
+                            "
+                        >
+                            ทะเบียนรถ
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="car-plate-badge"
+                        style="
+                            background:var(--text);
+                            color:white;
+                            padding:6px 14px;
+                            border-radius:8px;
+                            font-size:12px;
+                            font-weight:500;
+                        "
+                    >
+                        —
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="btn btn-primary"
+                    type="button"
+                    style="
+                        font-size:14px;
+                        padding:12px;
+                    "
+                    onclick="openCarEditModal()"
+                >
+
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                    </svg>
+
+                    แก้ไขข้อมูลรถ
+
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUICK MENU
+            ================================================== -->
+            <div class="quick-grid">
+
+
+                <!-- ข้อมูลรถ -->
+                <div
+                    class="quick-item"
+                    onclick="openCarInfoModal()"
+                >
+
+                    <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M5 17H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l2-4h10l2 4h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2"/>
+                        <circle cx="7.5" cy="17.5" r="2.5"/>
+                        <circle cx="16.5" cy="17.5" r="2.5"/>
+                    </svg>
+
+                    <span>
+                        ข้อมูลรถ
+                    </span>
+
+                </div>
+
+
+                <!-- ราคารถ -->
+                <div
+                    class="quick-item"
+                    onclick="openCarEditModal()"
+                >
+
+                    <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v2m0 8v2"/>
+                        <path d="M8 12h8"/>
+                    </svg>
+
+                    <span>
+                        ราคารถ
+                    </span>
+
+                </div>
+
+
+                <!-- ภาษี -->
+                <div
+                    class="quick-item"
+                    onclick="openCarEditModal()"
+                >
+
+                    <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <rect
+                            x="9"
+                            y="2"
+                            width="6"
+                            height="4"
+                            rx="1"
+                        />
+
+                        <path d="M6 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/>
+                    </svg>
+
+                    <span>
+                        ภาษี
+                    </span>
+
+                </div>
+
+
+                <!-- ประกัน -->
+                <div
+                    class="quick-item"
+                    onclick="openCarEditModal()"
+                >
+
+                    <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+
+                    <span>
+                        ประกัน
+                    </span>
+
+                </div>
+
+
+                <!-- ใบขับขี่ -->
+                <div
+                    class="quick-item"
+                    onclick="openCarEditModal()"
+                >
+
+                    <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    >
+                        <rect
+                            x="2"
+                            y="5"
+                            width="20"
+                            height="14"
+                            rx="2"
+                        />
+
+                        <circle
+                            cx="9"
+                            cy="12"
+                            r="2"
+                        />
+
+                        <path d="M13 11h4"/>
+                        <path d="M13 15h4"/>
+                    </svg>
+
+                    <span>
+                        ใบขับขี่
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 DOCUMENT STATUS
+            ================================================== -->
+            <div class="section-title">
+                สถานะเอกสาร
+            </div>
+
+
+            <div class="list-card">
+
+
+                <!-- PRICE -->
+                <div class="list-item">
+
+                    <div class="item-icon">
+
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v2m0 8v2"/>
+                            <path d="M8 12h8"/>
+                        </svg>
+
+                    </div>
+
+
+                    <div class="item-info">
+
+                        <div class="item-name">
+                            ราคาเต็มรถ
+                        </div>
+
+                    </div>
+
+
+                    <div class="item-right">
+
+                        <div
+                            class="item-amount"
+                            id="car-price-val"
+                        >
+                            ฿0
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TAX -->
+                <div class="list-item">
+
+                    <div class="item-icon">
+
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <rect
+                                x="9"
+                                y="2"
+                                width="6"
+                                height="4"
+                                rx="1"
+                            />
+
+                            <path d="M6 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/>
+                        </svg>
+
+                    </div>
+
+
+                    <div class="item-info">
+
+                        <div class="item-name">
+                            ภาษีรถยนต์
+                        </div>
+
+                        <div
+                            class="item-sub"
+                            id="car-tax-renew"
+                        >
+                            วันต่อ: —
+                        </div>
+
+                    </div>
+
+
+                    <div class="item-right">
+
+                        <div
+                            class="item-sub"
+                            id="car-tax-expire"
+                        >
+                            —
+                        </div>
+
+                        <div
+                            id="car-tax-status"
+                            style="font-size:11px;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- INSURANCE -->
+                <div class="list-item">
+
+                    <div class="item-icon">
+
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+
+                    </div>
+
+
+                    <div class="item-info">
+
+                        <div class="item-name">
+                            ประกันรถยนต์
+                        </div>
+
+                        <div
+                            class="item-sub"
+                            id="car-ins-type"
+                        >
+                            ประเภท: —
+                        </div>
+
+                    </div>
+
+
+                    <div class="item-right">
+
+                        <div
+                            class="item-sub"
+                            id="car-ins-expire"
+                        >
+                            —
+                        </div>
+
+                        <div
+                            id="car-ins-status"
+                            style="font-size:11px;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- LICENSE -->
+                <div class="list-item">
+
+                    <div class="item-icon">
+
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                        >
+                            <rect
+                                x="2"
+                                y="5"
+                                width="20"
+                                height="14"
+                                rx="2"
+                            />
+
+                            <circle
+                                cx="9"
+                                cy="12"
+                                r="2"
+                            />
+
+                            <path d="M13 11h4"/>
+                            <path d="M13 15h4"/>
+                        </svg>
+
+                    </div>
+
+
+                    <div class="item-info">
+
+                        <div class="item-name">
+                            ใบขับขี่
+                        </div>
+
+                        <div class="item-sub">
+                            วันหมดอายุ
+                        </div>
+
+                    </div>
+
+
+                    <div class="item-right">
+
+                        <div
+                            class="item-sub"
+                            id="car-license-expire"
+                        >
+                            —
+                        </div>
+
+                        <div
+                            id="car-license-status"
+                            style="font-size:11px;"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 LICENSE IMAGE
+            ================================================== -->
+            <div class="section-title">
+                รูปใบขับขี่
+            </div>
+
+
+            <div
+                id="car-license-img-wrap"
+                style="
+                    display:none;
+                    margin-bottom:10px;
+                "
+            >
+
+                <img
+                    id="car-license-img"
+                    style="
+                        width:100%;
+                        border-radius:var(--radius-sm);
+                    "
+                    alt=""
+                >
+
+            </div>
+
+
+            <button
+                class="btn btn-ghost"
+                type="button"
+                style="
+                    width:100%;
+                    margin-bottom:12px;
+                "
+                onclick="document.getElementById('license-img-input').click()"
+            >
+
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                </svg>
+
+                อัปโหลดรูปใบขับขี่
+
+            </button>
+
+
+            <input
+                type="file"
+                id="license-img-input"
+                accept="image/*"
+                style="display:none;"
+                onchange="handleLicenseImage(event)"
+            >
+
+
+
+            <!-- =================================================
+                 CAR MEMO
+            ================================================== -->
+            <div class="section-title">
+                บันทึกเกี่ยวกับรถ
+            </div>
+
+
+            <textarea
+                class="form-input"
+                id="car-memo"
+                rows="4"
+                placeholder="เปลี่ยนยาง, ซ่อมบำรุง, หมายเหตุ..."
+                style="resize:none;"
+                oninput="saveCarMemo()"
+            ></textarea>
+
+
+            <div style="height:20px;"></div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <!-- =====================================================
+         SHARED NAVBAR
+    ====================================================== -->
+    <div id="navbar"></div>
+
+</div>
+
+
+
+<!-- =========================================================
+     TOAST
+========================================================== -->
+<div
+    class="toast"
+    id="toast"
+>
+    บันทึกแล้ว
+</div>
+
+
+
+<!-- =========================================================
+     MODAL : ADD
+========================================================== -->
+<div
+    class="modal-overlay"
+    id="modal-add"
+>
+
+    <div class="modal">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-title">
+            เพิ่มอะไร?
+        </div>
+
+
+        <div
+            class="add-option"
+            onclick="closeModal('modal-add');openBillModal()"
+        >
+
+            <div class="add-option-icon">
+
+                <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <rect
+                        x="2"
+                        y="5"
+                        width="20"
+                        height="14"
+                        rx="2"
+                    />
+                    <line
+                        x1="2"
+                        y1="10"
+                        x2="22"
+                        y2="10"
+                    />
+                </svg>
+
+            </div>
+
+            <div>
+
+                <div class="add-option-name">
+                    บิลประจำเดือน
+                </div>
+
+                <div class="add-option-sub">
+                    ค่าเช่า ค่างวด ค่าน้ำ ค่าไฟ
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="add-option"
+            onclick="closeModal('modal-add');openBudgetModal()"
+        >
+
+            <div class="add-option-icon">
+
+                <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path d="M12 2v20"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+
+            </div>
+
+            <div>
+
+                <div class="add-option-name">
+                    หมวดค่าใช้จ่าย
+                </div>
+
+                <div class="add-option-sub">
+                    งบประมาณและรายจ่าย
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="add-option"
+            onclick="closeModal('modal-add');openPassModal()"
+        >
+
+            <div class="add-option-icon">
+
+                <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <circle
+                        cx="8"
+                        cy="15"
+                        r="5"
+                    />
+
+                    <path d="M21 3L11.6 12.4"/>
+                    <path d="M16 8l2 2"/>
+                    <path d="M19 5l2 2"/>
+                </svg>
+
+            </div>
+
+            <div>
+
+                <div class="add-option-name">
+                    รหัสผ่าน / PIN
+                </div>
+
+                <div class="add-option-sub">
+                    บัญชี รหัสผ่าน ข้อมูลสำคัญ
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="add-option"
+            onclick="closeModal('modal-add');openReminderModal()"
+        >
+
+            <div class="add-option-icon">
+
+                <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                </svg>
+
+            </div>
+
+            <div>
+
+                <div class="add-option-name">
+                    เตือนความจำ
+                </div>
+
+                <div class="add-option-sub">
+                    สิ่งที่ต้องทำและจำ
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="add-option"
+            onclick="closeModal('modal-add');openNoteModal()"
+        >
+
+            <div class="add-option-icon">
+
+                <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+
+            </div>
+
+            <div>
+
+                <div class="add-option-name">
+                    โน้ต
+                </div>
+
+                <div class="add-option-sub">
+                    บันทึกส่วนตัว
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MODAL : BILL
+========================================================== -->
+<div
+    class="modal-overlay"
+    id="modal-bill"
+>
+
+    <div class="modal">
+
+        <div class="modal-handle"></div>
+
+        <div
+            class="modal-title"
+            id="bill-modal-title"
+        >
+            เพิ่มบิล
+        </div>
+
+
+        <input
+            type="hidden"
+            id="bill-edit-id"
+        >
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                ชื่อรายการ
+            </label>
+
+            <input
+                class="form-input"
+                id="bill-name"
+                placeholder="ค่าเช่าบ้าน, ค่างวดรถ..."
+            >
+
+        </div>
+
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    ยอดเงิน (฿)
+                </label>
+
+                <input
+                    class="form-input"
+                    id="bill-amount"
+                    type="number"
+                    placeholder="0"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    วันที่ต้องจ่าย
+                </label>
+
+                <input
+                    class="form-input"
+                    id="bill-due"
+                    type="number"
+                    min="1"
+                    max="31"
+                    placeholder="1-31"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                หมวดหมู่
+            </label>
+
+            <select
+                class="form-input"
+                id="bill-cat"
+            >
+                <option value="housing">ที่อยู่อาศัย</option>
+                <option value="vehicle">ยานพาหนะ</option>
+                <option value="utility">สาธารณูปโภค</option>
+                <option value="entertainment">บันเทิง</option>
+                <option value="education">การศึกษา</option>
+                <option value="investment">การลงทุน/ออม</option>
+                <option value="food">อาหาร</option>
+                <option value="business">ธุรกิจ</option>
+                <option value="other">อื่นๆ</option>
+            </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                หมายเหตุ
+            </label>
+
+            <input
+                class="form-input"
+                id="bill-note"
+                placeholder="ธนาคาร, บัญชี..."
+            >
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="btn btn-ghost"
+                type="button"
+                onclick="closeModal('modal-bill')"
+            >
+                ยกเลิก
+            </button>
+
+            <button
+                class="btn btn-primary"
+                type="button"
+                style="flex:2;"
+                onclick="saveBill()"
+            >
+                บันทึก
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MODAL : BUDGET
+========================================================== -->
+<div
+    class="modal-overlay"
+    id="modal-budget"
+>
+
+    <div class="modal">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-title">
+            เพิ่มหมวดค่าใช้จ่าย
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                ชื่อหมวด
+            </label>
+
+            <input
+                class="form-input"
+                id="b-name"
+                placeholder="ค่าอาหาร, ค่าเช่า..."
+            >
+
+        </div>
+
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    ยอดที่ใช้ไป (฿)
+                </label>
+
+                <input
+                    class="form-input"
+                    id="b-spent"
+                    type="number"
+                    placeholder="0"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    งบสูงสุด (฿)
+                </label>
+
+                <input
+                    class="form-input"
+                    id="b-limit"
+                    type="number"
+                    placeholder="0"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="btn btn-ghost"
+                type="button"
+                onclick="closeModal('modal-budget')"
+            >
+                ยกเลิก
+            </button>
+
+            <button
+                class="btn btn-primary"
+                type="button"
+                style="flex:2;"
+                onclick="saveBudget()"
+            >
+                บันทึก
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MODAL : PASSWORD
+========================================================== -->
+<div
+    class="modal-overlay"
+    id="modal-pass"
+>
+
+    <div class="modal">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-title">
+            บันทึกรหัสผ่าน
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                ชื่อบัญชี / ระบบ
+            </label>
+
+            <input
+                class="form-input"
+                id="p-name"
+                placeholder="Gmail, ธนาคาร, Wi-Fi..."
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                ชื่อผู้ใช้ / อีเมล
+            </label>
+
+            <input
+                class="form-input"
+                id="p-user"
+                placeholder="username@example.com"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                รหัสผ่าน / PIN
+            </label>
+
+            <input
+                class="form-input"
+                id="p-pass"
+                placeholder="รหัสผ่าน"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                หมายเหตุ
+            </label>
+
+            <input
+                class="form-input"
+                id="p-note"
+                placeholder="..."
+            >
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="btn btn-ghost"
+                type="button"
+                onclick="closeModal('modal-pass')"
+            >
+                ยกเลิก
+            </button>
+
+            <button
+                class="btn btn-primary"
+                type="button"
+                style="flex:2;"
+                onclick="savePassword()"
+            >
+                บันทึก
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MODAL : REMINDER
+========================================================== -->
+<div
+    class="modal-overlay"
+    id="modal-reminder"
+>
+
+    <div class="modal">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-title">
+            เพิ่มเตือนความจำ
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                รายการ
+            </label>
+
+            <input
+                class="form-input"
+                id="r-title"
+                placeholder="สิ่งที่ต้องจำ..."
+            >
+
+        </div>
+
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    วันที่
+                </label>
+
+                <input
+                    class="form-input"
+                    id="r-date"
+                    type="date"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    ความสำคัญ
+                </label>
+
+                <select
+                    class="form-input"
+                    id="r-priority"
+                >
+                    <option value="high">ด่วนมาก</option>
+                    <option value="med" selected>ปานกลาง</option>
+                    <option value="low">ทั่วไป</option>
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="btn btn-ghost"
+                type="button"
+                onclick="closeModal('modal-reminder')"
+            >
+                ยกเลิก
+            </button>
+
+            <button
+                class="btn btn-primary"
+                type="button"
+                style="flex:2;"
+                onclick="saveReminder()"
+            >
+                บันทึก
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MODAL : NOTE
+========================================================== -->
+<div
+    class="modal-overlay"
+    id="modal-note"
+>
+
+    <div class="modal">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-title">
+            เพิ่มโน้ต
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                หัวข้อ
+            </label>
+
+            <input
+                class="form-input"
+                id="n-title"
+                placeholder="หัวข้อโน้ต..."
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                เนื้อหา
+            </label>
+
+            <textarea
+                class="form-input"
+                id="n-body"
+                rows="4"
+                placeholder="เขียนอะไรก็ได้..."
+                style="resize:none;"
+            ></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                สี
+            </label>
+
+            <div style="display:flex;gap:8px;">
+
+                <div
+                    class="color-pick"
+                    data-c="#FFF3CD"
+                    style="
+                        width:28px;
+                        height:28px;
+                        border-radius:50%;
+                        background:#FFF3CD;
+                        cursor:pointer;
+                        border:2px solid #D4890A;
+                    "
+                ></div>
+
+                <div
+                    class="color-pick"
+                    data-c="#D8EDEA"
+                    style="
+                        width:28px;
+                        height:28px;
+                        border-radius:50%;
+                        background:#D8EDEA;
+                        cursor:pointer;
+                        border:2px solid transparent;
+                    "
+                ></div>
+
+                <div
+                    class="color-pick"
+                    data-c="#FDECEA"
+                    style="
+                        width:28px;
+                        height:28px;
+                        border-radius:50%;
+                        background:#FDECEA;
+                        cursor:pointer;
+                        border:2px solid transparent;
+                    "
+                ></div>
+
+                <div
+                    class="color-pick"
+                    data-c="#EDE9FE"
+                    style="
+                        width:28px;
+                        height:28px;
+                        border-radius:50%;
+                        background:#EDE9FE;
+                        cursor:pointer;
+                        border:2px solid transparent;
+                    "
+                ></div>
+
+                <div
+                    class="color-pick"
+                    data-c="#F0EFEB"
+                    style="
+                        width:28px;
+                        height:28px;
+                        border-radius:50%;
+                        background:#F0EFEB;
+                        cursor:pointer;
+                        border:2px solid transparent;
+                    "
+                ></div>
+
+            </div>
+
+
+            <input
+                type="hidden"
+                id="n-color"
+                value="#FFF3CD"
+            >
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="btn btn-ghost"
+                type="button"
+                onclick="closeModal('modal-note')"
+            >
+                ยกเลิก
+            </button>
+
+            <button
+                class="btn btn-primary"
+                type="button"
+                style="flex:2;"
+                onclick="saveNote()"
+            >
+                บันทึก
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MODAL : CAR EDIT
+     
+     ตอนนี้ยังเป็นข้อมูลรถ + เอกสารเดิม
+     ขั้นต่อไปเราจะปรับ JS และฟอร์มให้รองรับ FIX 16 รายการ
+========================================================== -->
+<div
+    class="modal-overlay"
+    id="modal-car"
+>
+
+    <div class="modal">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-title">
+            ข้อมูลรถยนต์
+        </div>
+
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    รุ่นรถ
+                </label>
+
+                <input
+                    class="form-input"
+                    id="ce-model"
+                    placeholder="Toyota Yaris..."
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    ทะเบียน
+                </label>
+
+                <input
+                    class="form-input"
+                    id="ce-plate"
+                    placeholder="กข 1234"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                ราคาเต็มรถ (฿)
+            </label>
+
+            <input
+                class="form-input"
+                id="ce-price"
+                type="number"
+                placeholder="0"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                วันที่ต่อภาษี
+            </label>
+
+            <input
+                class="form-input"
+                id="ce-tax-renew"
+                type="date"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                วันสิ้นสุดภาษี
+            </label>
+
+            <input
+                class="form-input"
+                id="ce-tax-expire"
+                type="date"
+            >
+
+        </div>
+
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    ประเภทประกัน
+                </label>
+
+                <select
+                    class="form-input"
+                    id="ce-ins-type"
+                >
+                    <option value="">
+                        เลือก
+                    </option>
+
+                    <option value="ชั้น 1">
+                        ชั้น 1
+                    </option>
+
+                    <option value="ชั้น 2">
+                        ชั้น 2
+                    </option>
+
+                    <option value="ชั้น 2+">
+                        ชั้น 2+
+                    </option>
+
+                    <option value="ชั้น 3">
+                        ชั้น 3
+                    </option>
+
+                    <option value="ชั้น 3+">
+                        ชั้น 3+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    ปีประกัน
+                </label>
+
+                <input
+                    class="form-input"
+                    id="ce-ins-year"
+                    type="number"
+                    placeholder="2567"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                วันสิ้นสุดประกัน
+            </label>
+
+            <input
+                class="form-input"
+                id="ce-ins-expire"
+                type="date"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label class="form-label">
+                วันหมดอายุใบขับขี่
+            </label>
+
+            <input
+                class="form-input"
+                id="ce-license-expire"
+                type="date"
+            >
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="btn btn-ghost"
+                type="button"
+                onclick="closeModal('modal-car')"
+            >
+                ยกเลิก
+            </button>
+
+            <button
+                class="btn btn-primary"
+                type="button"
+                style="flex:2;"
+                onclick="saveCarData()"
+            >
+                บันทึก
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- =========================================================
+     MODAL : CAR INFORMATION / FIX DATA
+     
+     16 FIX FIELDS
+========================================================== -->
+<div
+    class="modal-overlay"
+    id="modal-car-info"
+>
+
+    <div class="modal car-info-modal">
+
+        <div class="modal-handle"></div>
+
+        <div class="modal-title">
+            ข้อมูลรถยนต์
+        </div>
+
+
+
+        <!-- ================================================
+             ข้อมูลระบุตัวรถ
+        ================================================= -->
+        <div class="car-info-modal-section">
+
+            <div class="car-info-modal-title">
+                ข้อมูลระบุตัวรถ
+            </div>
+
+
+            <div class="car-info-modal-row">
+                <span>เลขตัวถัง (VIN)</span>
+                <strong id="ci-vin">—</strong>
+            </div>
+
+
+            <div class="car-info-modal-row">
+                <span>เลขเครื่องยนต์</span>
+                <strong id="ci-engine-number">—</strong>
+            </div>
+
+        </div>
+
+
+
+       <!-- ================================================
+     ข้อมูลทางเทคนิค
+================================================= -->
+<div class="car-tech-section">
+
+    <div class="car-tech-header">
+        <div>
+            <div class="car-tech-title">ข้อมูลทางเทคนิค</div>
+            <div class="car-tech-subtitle">
+                รายละเอียดข้อมูลทางเทคนิคของรถยนต์
+            </div>
+        </div>
+    </div>
+
+
+    <div class="car-tech-grid">
+
+        <!-- เครื่องยนต์ -->
+        <div class="car-tech-card">
+            <div class="car-tech-icon">
+                <!-- Engine -->
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.6"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <path d="M7 7h8l2 3h3v7h-3l-2 3H7l-2-3H3v-7h2l2-3z"/>
+                    <path d="M9 7V4h5v3"/>
+                    <path d="M9 13h4"/>
+                </svg>
+            </div>
+
+            <div class="car-tech-content">
+                <span>เครื่องยนต์</span>
+                <strong id="ci-engine">1.2 ลิตร</strong>
+            </div>
+        </div>
+
+
+        <!-- เชื้อเพลิง -->
+        <div class="car-tech-card">
+            <div class="car-tech-icon">
+                <!-- Fuel -->
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.6"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <path d="M6 20V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v15"/>
+                    <path d="M6 8h11"/>
+                    <path d="M10 12h3"/>
+                    <path d="M17 7l3 3v7a2 2 0 0 0 2 2"/>
+                </svg>
+            </div>
+
+            <div class="car-tech-content">
+                <span>เชื้อเพลิง</span>
+                <strong id="ci-fuel">เบนซิน</strong>
+            </div>
+        </div>
+
+
+        <!-- เกียร์ -->
+        <div class="car-tech-card">
+            <div class="car-tech-icon">
+                <!-- Gear -->
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.6"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <path d="M6 4v8"/>
+                    <path d="M12 4v8"/>
+                    <path d="M18 4v8"/>
+                    <path d="M6 12c0 4 3 6 6 6s6-2 6-6"/>
+                    <circle cx="6" cy="4" r="1.5"/>
+                    <circle cx="12" cy="4" r="1.5"/>
+                    <circle cx="18" cy="4" r="1.5"/>
+                </svg>
+            </div>
+
+            <div class="car-tech-content">
+                <span>เกียร์</span>
+                <strong id="ci-gear">อัตโนมัติ (CVT)</strong>
+            </div>
+        </div>
+
+
+        <!-- ขับเคลื่อน -->
+        <div class="car-tech-card">
+            <div class="car-tech-icon">
+                <!-- Drive -->
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.6"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <circle cx="7" cy="7" r="2"/>
+                    <circle cx="17" cy="7" r="2"/>
+                    <circle cx="7" cy="17" r="2"/>
+                    <circle cx="17" cy="17" r="2"/>
+                    <path d="M9 7h6"/>
+                    <path d="M7 9v6"/>
+                    <path d="M17 9v6"/>
+                    <path d="M9 17h6"/>
+                </svg>
+            </div>
+
+            <div class="car-tech-content">
+                <span>ขับเคลื่อน</span>
+                <strong id="ci-drive">ล้อหน้า</strong>
+            </div>
+        </div>
+
+
+        <!-- จำนวนที่นั่ง -->
+        <div class="car-tech-card">
+            <div class="car-tech-icon">
+                <!-- Seat -->
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.6"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <circle cx="12" cy="5" r="2"/>
+                    <path d="M8 20v-6a4 4 0 0 1 8 0v6"/>
+                    <path d="M7 20h10"/>
+                    <path d="M9 11h6"/>
+                </svg>
+            </div>
+
+            <div class="car-tech-content">
+                <span>ที่นั่ง</span>
+                <strong id="ci-seats">5 ที่นั่ง</strong>
+            </div>
+        </div>
+
+
+        <!-- ถังน้ำมัน -->
+        <div class="car-tech-card">
+            <div class="car-tech-icon">
+                <!-- Tank -->
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.6"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <path d="M6 20V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v15"/>
+                    <path d="M6 8h12"/>
+                    <path d="M11 12h2"/>
+                    <path d="M18 7l3 3v6"/>
+                </svg>
+            </div>
+
+            <div class="car-tech-content">
+                <span>ถังน้ำมัน</span>
+                <strong id="ci-tank">37 ลิตร</strong>
+            </div>
+        </div>
+
+
+        <!-- ขนาดยาง -->
+        <div class="car-tech-card car-tech-card-wide">
+
+            <div class="car-tech-icon">
+                <!-- Tire -->
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.6"
+                     stroke-linecap="round"
+                     stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="8"/>
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M12 4v5"/>
+                    <path d="M20 12h-5"/>
+                    <path d="M12 20v-5"/>
+                    <path d="M4 12h5"/>
+                </svg>
+            </div>
+
+            <div class="car-tech-content">
+                <span>ขนาดยาง</span>
+                <strong id="ci-tire">185/55 R16</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+        <!-- ================================================
+             FOOTER
+        ================================================= -->
+        <div class="modal-footer">
+
+            <button
+                class="btn btn-ghost"
+                type="button"
+                onclick="closeModal('modal-car-info')"
+            >
+                ปิด
+            </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<!-- Navbar Loader -->
+<script src="navbar.js"></script>
+
+<!-- Main Application -->
+<script src="script.js"></script>
+
+</body>
+</html>

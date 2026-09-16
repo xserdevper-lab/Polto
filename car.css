@@ -1,0 +1,937 @@
+/* =========================================================
+   MYSPACE - CAR DETAIL
+   Car-specific CSS only
+========================================================= */
+
+
+/* =========================================================
+   CAR APP
+========================================================= */
+
+.car-app {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Kanit', sans-serif;
+
+    padding-bottom: 30px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.car-header {
+    height: 60px;
+
+    display: grid;
+    grid-template-columns: 40px 1fr 40px;
+    align-items: center;
+
+    padding: 0 14px;
+
+    box-sizing: border-box;
+}
+
+.car-header h1 {
+    margin: 0;
+
+    text-align: center;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    color: var(--text);
+}
+
+.car-header-btn {
+    width: 34px;
+    height: 34px;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+}
+
+.car-header-btn:hover {
+    background: var(--surface2);
+}
+
+.car-header-btn:active {
+    transform: scale(0.94);
+}
+
+.car-header-btn svg {
+    display: block;
+}
+
+
+/* =========================================================
+   CAR IMAGE
+========================================================= */
+
+.car-image-section {
+    padding: 0 18px;
+}
+
+.car-image-wrapper {
+    width: 100%;
+    height: 185px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+}
+
+.car-image-wrapper img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    object-position: center;
+}
+
+
+/* =========================================================
+   CAR NAME
+========================================================= */
+
+.car-name-section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 2px 18px 16px;
+}
+
+.car-brand {
+    margin: 0 0 1px;
+
+    font-size: 11px;
+    font-weight: 400;
+
+    color: var(--text-muted);
+}
+
+.car-name-section h2 {
+    margin: 0;
+
+    font-size: 22px;
+    line-height: 1.25;
+    font-weight: 600;
+
+    color: var(--text);
+}
+
+.car-trim {
+    margin: 3px 0 0;
+
+    font-size: 11px;
+    font-weight: 400;
+
+    color: var(--text-muted);
+}
+
+.car-year {
+    flex-shrink: 0;
+
+    padding: 6px 10px;
+
+    border-radius: 10px;
+
+    background: var(--surface2);
+
+    font-size: 11px;
+    font-weight: 500;
+
+    color: var(--text-muted);
+}
+
+
+/* =========================================================
+   QUICK INFO GRID
+========================================================= */
+
+.car-info-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+
+    padding: 0 14px 14px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   QUICK INFO CARD
+========================================================= */
+
+.car-info-card {
+    min-height: 88px;
+
+    padding: 11px 12px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.025);
+}
+
+.car-info-icon {
+    width: 26px;
+    height: 26px;
+
+    margin-bottom: 4px;
+
+    border-radius: 8px;
+
+    background: var(--surface2);
+
+    color: var(--text-muted);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.car-info-icon svg {
+    width: 17px;
+    height: 17px;
+
+    display: block;
+}
+
+.car-info-label {
+    display: block;
+
+    margin-bottom: 1px;
+
+    font-size: 9px;
+    line-height: 1.3;
+
+    color: var(--text-muted);
+}
+
+.car-info-card strong {
+    display: block;
+
+    font-size: 13px;
+    line-height: 1.3;
+    font-weight: 600;
+
+    color: var(--text);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   DETAIL CARD
+========================================================= */
+
+.car-detail-card {
+    margin: 0 14px 10px;
+
+    padding: 15px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    box-sizing: border-box;
+
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.025);
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.car-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 8px;
+}
+
+.car-section-title h3 {
+    margin: 0;
+
+    font-size: 14px;
+    line-height: 1.4;
+    font-weight: 600;
+
+    color: var(--text);
+}
+
+.car-edit-btn {
+    border: 0;
+    background: transparent;
+
+    padding: 4px 2px;
+
+    color: var(--accent);
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+.car-edit-btn:active {
+    opacity: 0.65;
+}
+
+
+/* =========================================================
+   DETAIL LIST
+========================================================= */
+
+.car-detail-list {
+    width: 100%;
+}
+
+
+/* =========================================================
+   DETAIL ROW
+========================================================= */
+
+.car-detail-row {
+    min-height: 39px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 8px 0;
+
+    border-bottom: 1px solid var(--border);
+
+    box-sizing: border-box;
+}
+
+.car-detail-row:last-child {
+    border-bottom: none;
+    padding-bottom: 2px;
+}
+
+.car-detail-row span {
+    min-width: 0;
+
+    font-size: 10px;
+    line-height: 1.4;
+
+    color: var(--text-muted);
+}
+
+.car-detail-row strong {
+    min-width: 0;
+
+    text-align: right;
+
+    font-size: 11px;
+    line-height: 1.4;
+    font-weight: 500;
+
+    color: var(--text);
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   IDENTIFICATION SECTION
+========================================================= */
+
+.car-detail-card:last-of-type {
+    margin-bottom: 0;
+}
+
+#detail-vin,
+#detail-engine-number {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2px;
+}
+
+
+/* =========================================================
+   BOTTOM SPACE
+========================================================= */
+
+.car-bottom-space {
+    height: 20px;
+}
+
+
+/* =========================================================
+   EMPTY / DEFAULT CAR IMAGE
+========================================================= */
+
+.car-image-wrapper img[src=""],
+.car-image-wrapper img:not([src]) {
+    display: none;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 430px) {
+
+    .car-header {
+        height: 58px;
+        padding: 0 12px;
+    }
+
+    .car-header h1 {
+        font-size: 14px;
+    }
+
+    .car-header-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .car-image-section {
+        padding: 0 14px;
+    }
+
+    .car-image-wrapper {
+        height: 170px;
+    }
+
+    .car-name-section {
+        padding-left: 14px;
+        padding-right: 14px;
+        padding-bottom: 14px;
+    }
+
+    .car-name-section h2 {
+        font-size: 21px;
+    }
+
+    .car-info-grid {
+        gap: 7px;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .car-info-card {
+        min-height: 84px;
+        padding: 10px;
+    }
+
+    .car-detail-card {
+        margin-left: 12px;
+        margin-right: 12px;
+        padding: 14px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+    .car-header {
+        grid-template-columns: 36px 1fr 36px;
+    }
+
+    .car-image-wrapper {
+        height: 145px;
+    }
+
+    .car-name-section h2 {
+        font-size: 19px;
+    }
+
+    .car-info-card {
+        min-height: 80px;
+        padding: 9px;
+    }
+
+    .car-info-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .car-info-icon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .car-info-card strong {
+        font-size: 12px;
+    }
+
+    .car-detail-card {
+        padding: 12px;
+    }
+
+    .car-detail-row {
+        gap: 8px;
+    }
+
+    .car-detail-row span {
+        font-size: 9px;
+    }
+
+    .car-detail-row strong {
+        font-size: 10px;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+.car-header-btn:focus-visible,
+.car-edit-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   MYSPACE - CAR
+   Technical Information
+========================================================= */
+
+
+/* =========================================================
+   CAR TECHNICAL SECTION
+========================================================= */
+
+.car-tech-section {
+    margin-top: 18px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.car-tech-header {
+    margin-bottom: 14px;
+}
+
+.car-tech-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text, #17212b);
+    letter-spacing: -0.2px;
+}
+
+.car-tech-subtitle {
+    margin-top: 3px;
+    font-size: 11px;
+    color: var(--muted, #718096);
+}
+
+
+/* =========================================================
+   TECHNICAL GRID
+========================================================= */
+
+.car-tech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+
+/* =========================================================
+   TECHNICAL CARD
+========================================================= */
+
+.car-tech-card {
+    min-width: 0;
+    min-height: 112px;
+
+    padding: 14px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background: #ffffff;
+    border: 1px solid #e9edf2;
+    border-radius: 16px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.04);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+}
+
+
+/* Hover */
+
+.car-tech-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #dfe4ea;
+
+    box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.07);
+}
+
+
+/* =========================================================
+   WIDE CARD
+   ขนาดยาง
+========================================================= */
+
+.car-tech-card-wide {
+    grid-column: 1 / -1;
+
+    min-height: 82px;
+
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.car-tech-icon {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #f4f6f8;
+    color: #4b5563;
+}
+
+
+.car-tech-icon svg {
+    width: 22px;
+    height: 22px;
+
+    display: block;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.car-tech-content {
+    min-width: 0;
+    margin-top: 10px;
+}
+
+
+.car-tech-card-wide .car-tech-content {
+    margin-top: 0;
+}
+
+
+.car-tech-content span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 10px;
+    line-height: 1.4;
+
+    color: var(--muted, #718096);
+}
+
+
+.car-tech-content strong {
+    display: block;
+
+    overflow: hidden;
+
+    font-size: 13px;
+    line-height: 1.45;
+
+    font-weight: 700;
+
+    color: var(--text, #17212b);
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   MODAL - CAR INFORMATION
+========================================================= */
+
+.car-info-modal {
+    width: min(94vw, 520px);
+    max-height: 88vh;
+
+    overflow-y: auto;
+
+    padding: 20px;
+
+    border-radius: 24px;
+}
+
+
+/* =========================================================
+   MODAL SECTIONS
+========================================================= */
+
+.car-info-modal-section {
+    margin-bottom: 16px;
+
+    padding: 14px;
+
+    background: #f8fafb;
+
+    border: 1px solid #edf0f3;
+    border-radius: 16px;
+}
+
+
+.car-info-modal-title {
+    margin-bottom: 10px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    color: var(--text, #17212b);
+}
+
+
+/* =========================================================
+   OLD INFORMATION ROW
+========================================================= */
+
+.car-info-modal-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    min-height: 34px;
+
+    border-bottom: 1px solid #edf0f3;
+}
+
+
+.car-info-modal-row:last-child {
+    border-bottom: none;
+}
+
+
+.car-info-modal-row span {
+    font-size: 10px;
+    color: var(--muted, #718096);
+}
+
+
+.car-info-modal-row strong {
+    max-width: 60%;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    color: var(--text, #17212b);
+
+    text-align: right;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .car-tech-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+
+    .car-tech-card {
+        min-height: 105px;
+        padding: 12px;
+
+        border-radius: 14px;
+    }
+
+
+    .car-tech-icon {
+        width: 38px;
+        height: 38px;
+
+        flex-basis: 38px;
+
+        border-radius: 11px;
+    }
+
+
+    .car-tech-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+
+    .car-tech-content {
+        margin-top: 8px;
+    }
+
+
+    .car-tech-content span {
+        font-size: 9px;
+    }
+
+
+    .car-tech-content strong {
+        font-size: 12px;
+    }
+
+
+    .car-tech-card-wide {
+        min-height: 72px;
+
+        gap: 12px;
+    }
+
+
+    .car-info-modal {
+        width: calc(100vw - 24px);
+
+        padding: 16px;
+
+        border-radius: 20px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .car-tech-grid {
+        gap: 7px;
+    }
+
+
+    .car-tech-card {
+        min-height: 100px;
+        padding: 10px;
+    }
+
+
+    .car-tech-icon {
+        width: 35px;
+        height: 35px;
+
+        flex-basis: 35px;
+    }
+
+
+    .car-tech-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+
+    .car-tech-content strong {
+        font-size: 11px;
+    }
+}
+
+/* =========================================================
+   CAR INFO - CLOSE BUTTON
+========================================================= */
+
+.car-info-modal .modal-footer .btn-primary {
+    background: #050505;
+    color: #ffffff;
+    border: 1px solid #1f1f1f;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.car-info-modal .modal-footer .btn-primary:hover {
+    background: #111111;
+}
+
+.car-info-modal .modal-footer .btn-primary:active {
+    background: #000000;
+    transform: scale(0.98);
+}
