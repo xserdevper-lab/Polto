@@ -1,6 +1,6 @@
 // =========================================================
 // MYSPACE - NAVBAR
-// components/navbar.js
+//navbar.js
 // =========================================================
 
 
@@ -22,12 +22,12 @@ document.addEventListener('DOMContentLoaded', function () {
     // โหลด navbar.html
     // -----------------------------------------------------
 
-    fetch('components/navbar.html')
+    fetch('navbar.html')
         .then(function (response) {
 
             if (!response.ok) {
                 throw new Error(
-                    'Cannot load components/navbar.html'
+                    'Cannot load navbar.html'
                 );
             }
 
